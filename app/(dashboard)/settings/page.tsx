@@ -3,6 +3,7 @@ import { getActiveBusinessId } from "@/lib/session";
 import { getBusiness, dashboardStats } from "@/lib/data";
 import { stateName, validateGSTIN, formatRupees } from "@/lib/gst-calculator";
 import { PLANS, isLiveMode, TRIAL_DAYS } from "@/lib/billing";
+import { limitsFor, invoicesThisMonth } from "@/lib/plan-limits";
 import { PricingPlans } from "@/components/PricingPlans";
 import { CancelSubscription } from "@/components/CancelSubscription";
 
@@ -27,6 +28,11 @@ export default async function SettingsPage() {
   const fullAddress = [addr.line1, addr.line2, addr.city, addr.pincode].filter(Boolean).join(", ") || "—";
   const bank = business.bankDetails;
   const onPaidPlan = business.plan !== "free";
+
+  const limits = limitsFor(business.plan);
+  const monthlyUsed = await invoicesThisMonth(businessId);
+  const invoiceUsageLabel =
+    limits.monthlyInvoices === null ? "Unlimited" : `${monthlyUsed} / ${limits.monthlyInvoices} this month`;
 
   const planCards = PLANS.map((p) => ({
     tier: p.tier,

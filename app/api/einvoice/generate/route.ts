@@ -6,6 +6,7 @@ import { calculateInvoice, type InvoiceLineInput } from "@/lib/gst-calculator";
 import { getGspAdapter } from "@/lib/einvoice/gsp";
 import type { Party } from "@/lib/einvoice/payload";
 import { getActiveBusinessId } from "@/lib/session";
+import { limitsFor, upgradeMessage } from "@/lib/plan-limits";
 
 export const runtime = "nodejs";
 
@@ -47,6 +48,14 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { error: "E-invoicing (IRN) applies to B2B invoices only. This customer has no GSTIN." },
       { status: 422 }
+    );
+  }
+
+  // Plan gate: e-invoice is a Professional+ feature.
+  if (!limitsFor(business.plan).eInvoice) {
+    return NextResponse.json(
+      { error: upgradeMessage("einvoice"), code: "PLAN_LIMIT" },
+      { status: 403 }
     );
   }
   if (!body.lines?.length) {

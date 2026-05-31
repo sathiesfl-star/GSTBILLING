@@ -3,6 +3,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { Invoice } from "@/models/Invoice";
 import { Business } from "@/models/Business";
 import { getActiveBusinessId } from "@/lib/session";
+import { limitsFor, upgradeMessage } from "@/lib/plan-limits";
 import {
   buildEwbPayload,
   computeValidUpto,
@@ -54,6 +55,14 @@ export async function POST(req: Request) {
   ]);
   if (!business) return NextResponse.json({ error: "Business not found" }, { status: 404 });
   if (!invoice) return NextResponse.json({ error: "Invoice not found" }, { status: 404 });
+
+  // Plan gate: e-way bill is a Professional+ feature.
+  if (!limitsFor(business.plan).eWayBill) {
+    return NextResponse.json(
+      { error: upgradeMessage("ewaybill"), code: "PLAN_LIMIT" },
+      { status: 403 }
+    );
+  }
 
   if (invoice.grandTotalPaise <= EWB_THRESHOLD_PAISE) {
     return NextResponse.json(

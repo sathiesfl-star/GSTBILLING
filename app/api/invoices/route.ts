@@ -6,6 +6,7 @@ import { Business } from "@/models/Business";
 import { nextSequence } from "@/models/Counter";
 import { getActiveBusinessId } from "@/lib/session";
 import { calculateInvoice, type InvoiceLineInput } from "@/lib/gst-calculator";
+import { canCreateInvoice, upgradeMessage } from "@/lib/plan-limits";
 
 export const runtime = "nodejs";
 
@@ -66,6 +67,15 @@ export async function POST(req: Request) {
   }
   if (!customer || customer.businessId.toString() !== businessId) {
     return NextResponse.json({ error: "Customer not found" }, { status: 404 });
+  }
+
+  // Plan limit: free tier is capped at 20 invoices/month.
+  const cap = await canCreateInvoice(businessId, business.plan);
+  if (!cap.allowed) {
+    return NextResponse.json(
+      { error: upgradeMessage("invoices"), code: "PLAN_LIMIT", used: cap.used, limit: cap.limit },
+      { status: 403 }
+    );
   }
 
   // Recompute totals server-side (never trust client math)
