@@ -19,14 +19,63 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "BillEasy — Generate GST e-invoices (IRN + QR) in 1 click",
+  title: "GST Billing & E-Invoicing Software — 1-Click IRN + QR",
   description:
-    "GST billing & e-invoicing for Indian businesses. Create a compliant invoice, generate the IRN + QR, and file your GSTR — without the manual work.",
+    "GST billing & e-invoicing for Indian businesses. Create a compliant invoice, generate the IRN + QR, and file your GSTR — without the manual work. Free 14-day trial.",
+  alternates: { canonical: "/" },
+};
+
+const FAQ_ITEMS = [
+  { q: "Do I need e-invoicing for my business?", a: "E-invoicing (IRN) is mandatory only if your annual turnover is above ₹5 crore. Below that it's optional — you can still use BillEasy for invoicing, GST, and return filing without it." },
+  { q: "Is the e-invoice IRN government-valid?", a: "BillEasy generates the IRN using the official NIC algorithm and builds the GST e-invoice JSON. For a government-signed QR, BillEasy connects to a licensed GSP, enabled for your account when you go live." },
+  { q: "Can my CA use it?", a: "Yes. BillEasy gives your CA a clean, portal-ready GSTR-1/3B JSON to upload instead of a shoebox of invoices. The Business plan includes CA access." },
+  { q: "How do I actually file my returns?", a: "BillEasy prepares the return file; you upload it on gst.gov.in and submit. A step-by-step guide is built into the Reports page." },
+  { q: "Does it work on my phone?", a: "Yes — BillEasy is fully mobile-responsive. Create and send invoices from your phone." },
+  { q: "Is my data safe?", a: "Your data is stored securely with per-business isolation and password-protected access. You can sign in with Google for added security." },
+];
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "BillEasy",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description:
+        "GST billing & e-invoicing software for Indian businesses: create GST invoices, generate e-invoice IRN + QR, send on WhatsApp, and export GSTR-1 & 3B.",
+      offers: {
+        "@type": "Offer",
+        price: "1499",
+        priceCurrency: "INR",
+        description: "Starter plan, billed annually. 14-day free trial.",
+      },
+      featureList: [
+        "GST invoice generation (CGST/SGST/IGST)",
+        "E-invoice IRN and QR code",
+        "GSTR-1 and GSTR-3B export",
+        "E-way bill",
+        "WhatsApp invoice delivery",
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ_ITEMS.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
 };
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
       {/* ---------------- Nav ---------------- */}
       <header className="sticky top-0 z-20 flex items-center justify-between border-b bg-white/90 px-5 py-3 backdrop-blur sm:px-8">
         <div className="text-xl font-bold text-brand">
@@ -285,14 +334,7 @@ export default function HomePage() {
       <section id="faq" className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
         <h2 className="text-center text-2xl font-bold text-slate-900 sm:text-3xl">Frequently asked questions</h2>
         <div className="mt-8 space-y-3">
-          {[
-            { q: "Do I need e-invoicing for my business?", a: "E-invoicing (IRN) is mandatory only if your annual turnover is above ₹5 crore. Below that, it's optional — you can still use BillEasy for invoicing, GST, and return filing without it." },
-            { q: "Is the e-invoice IRN government-valid?", a: "BillEasy generates the IRN using the exact official NIC algorithm and builds the GST e-invoice JSON. For a government-signed QR, BillEasy connects to a licensed GSP — we'll enable that for your account when you go live." },
-            { q: "Can my CA use it?", a: "Yes. BillEasy gives your CA a clean, portal-ready GSTR-1/3B JSON to upload — instead of a shoebox of invoices. The Business plan includes CA access." },
-            { q: "How do I actually file my returns?", a: "BillEasy prepares the return file; you upload it on gst.gov.in and submit. There's a step-by-step guide built into the Reports page." },
-            { q: "Does it work on my phone?", a: "Yes — BillEasy is fully mobile-responsive. Create and send invoices from your phone." },
-            { q: "Is my data safe?", a: "Your data is stored securely with per-business isolation and password-protected access. You can sign in with Google for added security." },
-          ].map((f) => (
+          {FAQ_ITEMS.map((f) => (
             <details key={f.q} className="group rounded-xl border bg-white p-4">
               <summary className="flex cursor-pointer items-center justify-between font-medium text-slate-900">
                 {f.q}

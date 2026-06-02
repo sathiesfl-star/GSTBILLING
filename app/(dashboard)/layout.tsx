@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 import { getSession } from "@/lib/session";
 import { getBusiness } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
+
+// The authenticated app shouldn't be indexed by search engines.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function DashboardLayout({
   children,
