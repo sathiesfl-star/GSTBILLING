@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { GoogleSignInButton, AuthDivider } from "@/components/GoogleSignInButton";
+
+const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_ENABLED === "true";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -48,7 +51,14 @@ export default function RegisterPage() {
         <h1 className="mt-4 text-lg font-semibold text-slate-900">Create your account</h1>
         <p className="text-sm text-slate-500">Set up your business in 30 seconds.</p>
 
-        <form onSubmit={onSubmit} className="mt-5 space-y-3">
+        {googleEnabled && (
+          <div className="mt-5">
+            <GoogleSignInButton label="Sign up with Google" />
+            <AuthDivider />
+          </div>
+        )}
+
+        <form onSubmit={onSubmit} className={googleEnabled ? "space-y-3" : "mt-5 space-y-3"}>
           <Field label="Your name" value={form.name} onChange={set("name")} />
           <Field label="Email" type="email" value={form.email} onChange={set("email")} required />
           <Field label="Password" type="password" value={form.password} onChange={set("password")} required />

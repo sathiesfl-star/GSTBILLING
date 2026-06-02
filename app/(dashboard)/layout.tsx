@@ -11,7 +11,10 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  if (!session?.user?.businessId) redirect("/login");
+  // Not logged in at all -> login. Logged in but no business yet (e.g. fresh
+  // Google sign-in) -> onboarding, so we don't loop back to /login.
+  if (!session?.user) redirect("/login");
+  if (!session.user.businessId) redirect("/onboarding");
   const business = await getBusiness(session.user.businessId);
 
   return (
