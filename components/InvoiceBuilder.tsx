@@ -334,7 +334,8 @@ export function InvoiceBuilder({ seller, customers, items, nextInvoiceNo }: Buil
             </div>
             {!einvoice ? (
               <>
-                <p className="mt-2 text-sm text-slate-600">Required for B2B invoices under the GST e-invoice mandate. Computes the real NIC IRN hash and builds the GST e-invoice JSON.</p>
+                <p className="mt-2 text-sm text-slate-600">Computes the real NIC IRN hash and builds the GST e-invoice JSON for B2B invoices.</p>
+                <p className="mt-1 text-xs text-slate-400">Only required if your turnover is above ₹5 crore. Optional below that.</p>
                 <button onClick={generateEInvoice} disabled={generating} className="mt-3 w-full rounded-lg bg-brand py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:opacity-60">
                   {generating ? "Generating IRN…" : "⚡ Generate E-Invoice (IRN + QR)"}
                 </button>

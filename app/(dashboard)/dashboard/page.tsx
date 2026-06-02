@@ -50,7 +50,7 @@ export default async function DashboardPage() {
         <div className="text-sm">
           <span className="font-semibold text-slate-900">E-invoicing is mandatory for businesses above ₹5 crore turnover.</span>{" "}
           <span className="text-slate-600">
-            {stats.invoiceCount - stats.eInvoiceCount} invoice(s) don&apos;t have an IRN yet. Generate them to stay compliant.
+            Below that it&apos;s optional. {stats.invoiceCount - stats.eInvoiceCount} invoice(s) don&apos;t have an IRN yet — generate them if e-invoicing applies to you.
           </span>
         </div>
       </div>
