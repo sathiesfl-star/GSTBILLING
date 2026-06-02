@@ -4,6 +4,7 @@ import { getGstrData } from "@/lib/data";
 import { formatRupees } from "@/lib/gst-calculator";
 import { GstrExport } from "@/components/GstrExport";
 import { PeriodSelector } from "@/components/PeriodSelector";
+import { HowToFileGuide } from "@/components/HowToFileGuide";
 
 export const dynamic = "force-dynamic";
 
@@ -92,9 +93,7 @@ export default async function ReportsPage({
             </div>
           </section>
 
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-            💡 Upload the downloaded GSTR-1 JSON directly on <b>gstn.gov.in</b> → Returns → GSTR-1 → Prepare Offline → Upload.
-          </div>
+          <HowToFileGuide />
         </>
       )}
     </div>
