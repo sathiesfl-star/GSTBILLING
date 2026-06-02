@@ -20,16 +20,16 @@ export default function HomePage() {
       {/* Hero */}
       <section className="mx-auto max-w-4xl px-6 py-16 text-center">
         <div className="mb-4 inline-block rounded-full bg-brand-light px-4 py-1 text-sm font-medium text-brand">
-          New ₹2 crore e-invoice rule is now live
+          E-invoice mandatory at ₹5cr — dropping toward ₹2cr
         </div>
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
           Get GST e-invoices <span className="text-brand">(IRN + QR)</span>
           <br /> in 1 click.
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600">
-          Stay compliant with the new ₹2 crore e-invoicing mandate. Create a
-          legal GST invoice, generate the IRN, and send it on WhatsApp — in under
-          30 seconds.
+          Stay compliant with GST e-invoicing — mandatory above ₹5 crore turnover
+          and being lowered toward ₹2 crore. Create a legal GST invoice, generate
+          the IRN, and send it on WhatsApp — in under 30 seconds.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
@@ -47,7 +47,7 @@ export default function HomePage() {
       {/* Feature cards */}
       <section className="mx-auto grid max-w-5xl gap-4 px-6 pb-20 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { icon: ShieldCheck, title: "E-invoice ready", body: "1-click IRN + signed QR for the new ₹2cr mandate." },
+          { icon: ShieldCheck, title: "E-invoice ready", body: "1-click IRN + signed QR for the GST e-invoice mandate." },
           { icon: Zap, title: "Real-time GST", body: "CGST/SGST or IGST auto-calculated as you type." },
           { icon: FileText, title: "Legal tax invoice", body: "All mandatory GST fields, professional PDF." },
           { icon: MessageCircle, title: "WhatsApp delivery", body: "Send invoice + payment link in one tap." },

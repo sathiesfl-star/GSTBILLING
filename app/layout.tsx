@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "BillEasy — 1-click GST e-invoices",
   description:
-    "Get GST e-invoices (IRN + QR) in 1 click. Stay compliant with the new ₹2cr e-invoicing rule.",
+    "Get GST e-invoices (IRN + QR) in 1 click. Stay compliant with the GST e-invoicing mandate.",
 };
 
 export default function RootLayout({

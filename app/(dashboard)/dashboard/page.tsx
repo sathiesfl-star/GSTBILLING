@@ -48,7 +48,7 @@ export default async function DashboardPage() {
       <div className="flex items-start gap-3 rounded-xl border border-brand/30 bg-brand-light p-4">
         <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
         <div className="text-sm">
-          <span className="font-semibold text-slate-900">E-invoicing is mandatory above ₹2 crore turnover.</span>{" "}
+          <span className="font-semibold text-slate-900">E-invoicing is mandatory above ₹5 crore turnover — and the threshold is being lowered toward ₹2 crore.</span>{" "}
           <span className="text-slate-600">
             {stats.invoiceCount - stats.eInvoiceCount} invoice(s) don&apos;t have an IRN yet. Generate them to stay compliant.
           </span>
