@@ -246,10 +246,21 @@ export async function getGstrData(businessId: string, period?: string) {
     };
   });
 
-  const availablePeriods = [...new Set(all.map((i) => i.period))];
   const now = new Date();
   const currentPeriod = `${String(now.getUTCMonth() + 1).padStart(2, "0")}${now.getUTCFullYear()}`;
-  const usePeriod = period ?? availablePeriods[0] ?? currentPeriod;
+  // Newest-first, and always offer the current month even with no invoices yet.
+  const periodSet = new Set<string>(all.map((i) => i.period));
+  periodSet.add(currentPeriod);
+  const availablePeriods = [...periodSet].sort((a, b) => {
+    // MMYYYY -> compare by YYYY then MM, descending
+    const ka = a.slice(2) + a.slice(0, 2);
+    const kb = b.slice(2) + b.slice(0, 2);
+    return kb.localeCompare(ka);
+  });
+  // Default (no explicit period): the most recent period that HAS invoices,
+  // so the user lands on populated data rather than an empty current month.
+  const periodsWithData = availablePeriods.filter((p) => all.some((i) => i.period === p));
+  const usePeriod = period ?? periodsWithData[0] ?? availablePeriods[0] ?? currentPeriod;
 
   const seller = { gstin: business.gstin, stateCode: business.stateCode };
   const invoices: GstrInvoice[] = all.filter((i) => i.period === usePeriod);

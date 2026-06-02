@@ -3,6 +3,7 @@ import { getActiveBusinessId } from "@/lib/session";
 import { getGstrData } from "@/lib/data";
 import { formatRupees } from "@/lib/gst-calculator";
 import { GstrExport } from "@/components/GstrExport";
+import { PeriodSelector } from "@/components/PeriodSelector";
 
 export const dynamic = "force-dynamic";
 
@@ -13,24 +14,31 @@ function prettyPeriod(p: string): string {
   return `${MM[m] ?? p} ${y}`;
 }
 
-export default async function ReportsPage() {
+export default async function ReportsPage({
+  searchParams,
+}: {
+  searchParams: { period?: string };
+}) {
   const businessId = await getActiveBusinessId();
   if (!businessId) redirect("/login");
 
-  const data = await getGstrData(businessId);
+  const data = await getGstrData(businessId, searchParams.period);
   if (!data) redirect("/login");
 
-  const { period, gstr1, gstr3b, summary } = data;
+  const { period, availablePeriods, gstr1, gstr3b, summary } = data;
   const g3b = gstr3b.sup_details;
   const toPaise = (r: number) => Math.round(r * 100);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">GST Reports</h1>
-        <p className="text-sm text-slate-500">
-          GSTR-1 / GSTR-3B for {prettyPeriod(period)} (period {period})
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">GST Reports</h1>
+          <p className="text-sm text-slate-500">
+            GSTR-1 / GSTR-3B for {prettyPeriod(period)} (period {period})
+          </p>
+        </div>
+        <PeriodSelector period={period} available={availablePeriods} />
       </div>
 
       {summary.invoiceCount === 0 ? (
