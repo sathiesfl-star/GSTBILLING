@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(node -e ' *)",
+      "Bash(node --import tsx -e ' *)",
+      "Bash(npm run *)",
+      "Bash(node --env-file=.env.local --import tsx -e ' *)"
     ]
   }
 }
