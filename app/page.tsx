@@ -10,6 +10,12 @@ import {
   Check,
   ArrowRight,
   QrCode as QrIcon,
+  Lock,
+  RefreshCcw,
+  IndianRupee,
+  Headphones,
+  BadgeCheck,
+  Star,
 } from "lucide-react";
 
 export const metadata = {
@@ -63,7 +69,11 @@ export default function HomePage() {
               See the live demo
             </Link>
           </div>
-          <p className="mt-3 text-xs text-slate-400">No credit card required · Works on mobile · ₹ pricing</p>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+            <span className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> No credit card required</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-emerald-500" /> Bank-grade security</span>
+            <span className="flex items-center gap-1.5"><RefreshCcw className="h-3.5 w-3.5 text-emerald-500" /> Cancel anytime</span>
+          </div>
         </div>
 
         {/* Product mockup */}
@@ -105,12 +115,15 @@ export default function HomePage() {
       </section>
 
       {/* ---------------- Trust strip ---------------- */}
-      <section className="border-y bg-slate-50 py-5">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-5 text-center text-sm text-slate-500">
-          <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-500" /> NIC e-invoice format</span>
-          <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-500" /> All 5 GST rates</span>
-          <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-500" /> GSTR-1 &amp; 3B export</span>
-          <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-500" /> Works across all states</span>
+      <section className="border-y bg-slate-50 py-6">
+        <div className="mx-auto max-w-5xl px-5">
+          <p className="text-center text-xs font-semibold uppercase tracking-wide text-slate-400">Built for Indian GST compliance</p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center text-sm font-medium text-slate-600">
+            <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-brand" /> Official NIC e-invoice format</span>
+            <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-brand" /> All 5 GST rates &amp; HSN/SAC</span>
+            <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-brand" /> GSTR-1 &amp; 3B portal-ready</span>
+            <span className="flex items-center gap-1.5"><IndianRupee className="h-4 w-4 text-brand" /> Pricing in ₹, made in India</span>
+          </div>
         </div>
       </section>
 
@@ -176,6 +189,57 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ---------------- Security / Trust ---------------- */}
+      <section className="bg-slate-900 py-16 text-white">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+          <div className="text-center">
+            <div className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+              <Lock className="h-3.5 w-3.5" /> Your data, protected
+            </div>
+            <h2 className="mt-4 text-2xl font-bold sm:text-3xl">Security you can trust with your finances</h2>
+            <p className="mx-auto mt-2 max-w-xl text-slate-300">Your invoices and customer data are private to your business — never shared, never sold.</p>
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+            {[
+              { icon: Lock, title: "Encrypted access", body: "Passwords are hashed, sessions are signed, and every connection is secured over HTTPS." },
+              { icon: ShieldCheck, title: "Per-business isolation", body: "Your data is walled off from every other account — no one else can see your invoices." },
+              { icon: BadgeCheck, title: "Sign in with Google", body: "Optional Google sign-in adds Google's own 2-factor protection to your account." },
+            ].map((s) => (
+              <div key={s.title} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                <div className="inline-flex rounded-lg bg-white/10 p-2"><s.icon className="h-5 w-5 text-brand-light" /></div>
+                <h3 className="mt-3 font-semibold">{s.title}</h3>
+                <p className="mt-1 text-sm text-slate-300">{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------- Early access / testimonials ---------------- */}
+      <section className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8">
+        <div className="inline-flex items-center gap-1 text-amber-400">
+          {[0, 1, 2, 3, 4].map((i) => <Star key={i} className="h-5 w-5 fill-current" />)}
+        </div>
+        <h2 className="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">Be one of our first businesses</h2>
+        <p className="mx-auto mt-3 max-w-xl text-slate-600">
+          BillEasy is new — and we work hand-in-hand with our early customers. Sign up, and you get a
+          direct line to the team and a real say in what we build next.
+        </p>
+        <div className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-3">
+          {[
+            { icon: Headphones, title: "Direct founder support", body: "Reach a real person on WhatsApp/email — not a ticket queue." },
+            { icon: RefreshCcw, title: "Shaped by your feedback", body: "Tell us what your business needs; we build it." },
+            { icon: ShieldCheck, title: "Lock in early pricing", body: "Early customers keep their plan price as we grow." },
+          ].map((b) => (
+            <div key={b.title} className="rounded-xl border bg-white p-5 text-left">
+              <div className="inline-flex rounded-lg bg-brand-light p-2 text-brand"><b.icon className="h-5 w-5" /></div>
+              <h3 className="mt-3 font-semibold text-slate-900">{b.title}</h3>
+              <p className="mt-1 text-sm text-slate-600">{b.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ---------------- Pricing ---------------- */}
       <section id="pricing" className="bg-slate-50 py-16">
         <div className="mx-auto max-w-5xl px-5 sm:px-8">
@@ -207,6 +271,13 @@ export default function HomePage() {
             ))}
           </div>
           <p className="mt-6 text-center text-sm text-slate-500">Also have a <b>Free</b> plan — 20 invoices/month to get started. <Link href="/register" className="font-medium text-brand hover:underline">Sign up free →</Link></p>
+
+          <div className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-xl border bg-white px-5 py-4 text-sm text-slate-600">
+            <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-500" /> 14-day free trial</span>
+            <span className="flex items-center gap-1.5"><RefreshCcw className="h-4 w-4 text-emerald-500" /> Cancel anytime</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-4 w-4 text-emerald-500" /> No lock-in — export your data</span>
+            <span className="flex items-center gap-1.5"><IndianRupee className="h-4 w-4 text-emerald-500" /> No hidden fees</span>
+          </div>
         </div>
       </section>
 
@@ -243,6 +314,7 @@ export default function HomePage() {
           <Link href="/register" className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-white px-6 py-3 font-semibold text-brand hover:bg-slate-100">
             Start free <ArrowRight className="h-4 w-4" />
           </Link>
+          <p className="mt-4 text-xs text-brand-light/80">14-day free trial · No credit card · Cancel anytime</p>
         </div>
       </section>
 
